@@ -27,6 +27,9 @@ class ExceptionListener
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
         $exception = $event->getException();
+        if ($exception instanceof HttpException) {
+            return;
+        }
         $culprit = null;
         if($event->getRequest()->attributes->has("_controller")){
             $culprit = $event->getRequest()->attributes->get("_controller");
