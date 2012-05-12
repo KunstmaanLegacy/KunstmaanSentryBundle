@@ -51,7 +51,6 @@ public function registerBundles()
 
 ```
         sentry.dsn="[dsn]"
-
 ```
 
 License
