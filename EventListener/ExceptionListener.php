@@ -1,21 +1,22 @@
 <?php
 namespace Kunstmaan\SentryBundle\EventListener;
 
-use Raven_Client;
+use Kunstmaan\SentryBundle\Raven\Raven;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 
 class ExceptionListener
 {
     /**
-     * @var Raven_Client
+     * @var Raven
      */
     protected $client;
 
     /**
-     * @param Raven_Client $client
+     * @param Raven $client
      */
-    public function __construct(Raven_Client $client)
+    public function __construct(Raven $client)
     {
         $this->client = $client;
     }
@@ -26,7 +27,11 @@ class ExceptionListener
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
         $exception = $event->getException();
-        $this->client->captureException($exception);
+        $culprit = null;
+        if($event->getRequest()->attributes->has("_controller")){
+            $culprit = $event->getRequest()->attributes->get("_controller");
+        }
+        $this->client->captureException($exception, $culprit, $this->client->getEnvironment());
         error_log($exception->getMessage() . ' in: ' . $exception->getFile() . ':' . $exception->getLine());
     }
 }

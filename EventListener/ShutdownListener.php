@@ -2,18 +2,18 @@
 namespace Kunstmaan\SentryBundle\EventListener;
 
 
-use Raven_Client;
+use Kunstmaan\SentryBundle\Raven\Raven;
 use RuntimeException;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 
 class ShutdownListener
 {
     /**
-     * @var Raven_Client
+     * @var Raven
      */
     protected $client;
 
-    public function __construct(Raven_Client $client)
+    public function __construct(Raven $client)
     {
         $this->client = $client;
     }
@@ -49,7 +49,8 @@ class ShutdownListener
         $message   = '[Shutdown Error]: %s';
         $message   = sprintf($message, $error['message']);
         $exception = new RuntimeException($message.' in: '.$error['file'].':'.$error['line']);
-        $this->client->captureException($exception);
+        $culprit = $error['file'];
+        $this->client->captureException($exception, $culprit);
         error_log($message.' in: '.$error['file'].':'.$error['line']);
     }
 }
