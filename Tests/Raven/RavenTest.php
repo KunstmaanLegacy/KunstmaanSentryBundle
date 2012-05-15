@@ -1,7 +1,7 @@
 <?php
 use Symfony\Component\HttpKernel\Kernel;
 
-require_once __DIR__.'../TestKernel.php';
+require_once __DIR__.'/../TestKernel.php';
 
 class RavenTest extends \PHPUnit_Framework_TestCase
 {
