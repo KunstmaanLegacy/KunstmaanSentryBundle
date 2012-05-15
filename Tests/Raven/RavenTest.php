@@ -1,10 +1,11 @@
 <?php
+use Symfony\Component\HttpKernel\Kernel;
 
 class RavenTest extends \PHPUnit_Framework_TestCase
 {
     public function testRavenClient()
     {
-        $kernel = new AppKernel('prod', false);
+        $kernel = new Kernel('prod', false);
         $environment = $kernel->getEnvironment();
         $raven = new \Kunstmaan\SentryBundle\Raven\Raven('http://public:secret@example.com/1', $environment);
 
