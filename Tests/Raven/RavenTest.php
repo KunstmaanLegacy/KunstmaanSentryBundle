@@ -5,7 +5,7 @@ class RavenTest extends \PHPUnit_Framework_TestCase
 {
     public function testRavenClient()
     {
-        $kernel = new Kernel('prod', false);
+        $kernel = new KernelForTest('prod', false);
         $environment = $kernel->getEnvironment();
         $raven = new \Kunstmaan\SentryBundle\Raven\Raven('http://public:secret@example.com/1', $environment);
 
@@ -15,5 +15,31 @@ class RavenTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($raven->secret_key, 'secret');
         $this->assertEquals($raven->getEnvironment(), $environment);
 
+    }
+}
+
+
+class KernelForTest extends Kernel
+{
+    public function getName()
+    {
+        return 'testkernel';
+    }
+
+    public function registerBundles()
+    {
+    }
+
+    public function init()
+    {
+    }
+
+    public function getBundles()
+    {
+        return array();
+    }
+
+    public function registerContainerConfiguration(LoaderInterface $loader)
+    {
     }
 }
