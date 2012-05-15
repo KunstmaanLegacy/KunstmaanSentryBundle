@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="KunstmaanSentryBundle" default="beforescripts">
+
+    <target name="beforescripts" >
+        <echo msg="Running the before scripts..." />
+
+        <exec command="php vendors.php" dir="./vendor" />
+
+        <echo msg="Done running all the before scripts." />
+    </target>
+</project>

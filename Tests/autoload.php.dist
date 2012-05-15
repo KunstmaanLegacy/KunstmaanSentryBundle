@@ -1,23 +1,29 @@
 <?php
-
 $vendorDir = __DIR__.'/../vendor';
+
 require_once $vendorDir.'/symfony/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
 
 use Symfony\Component\ClassLoader\UniversalClassLoader;
+use Doctrine\Common\Annotations\AnnotationRegistry;
 
 $loader = new UniversalClassLoader();
 $loader->registerNamespaces(array(
     'Symfony'                => array($vendorDir.'/symfony/src', $vendorDir.'/bundles'),
+    'Kunstmaan'              => array($vendorDir.'/bundles'),
 ));
 $loader->register();
 
 spl_autoload_register(function($class) {
-    if (0 === strpos($class, 'KunstmaanSentryBundle\\')) {
+    if (0 === strpos($class, 'Kunstmaan\\SentryBundle\\')) {
         $path = __DIR__.'/../'.implode('/', array_slice(explode('\\', $class), 2)).'.php';
         if (!stream_resolve_include_path($path)) {
             return false;
         }
         require_once $path;
+
         return true;
     }
 });
+
+require_once __DIR__ .  '/../vendor/raven-php/lib/Raven/Autoloader.php';
+Raven_Autoloader::register();
