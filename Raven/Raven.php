@@ -16,7 +16,9 @@ class Raven extends Raven_Client
         $this->environment = $environment;
         $options = array();
         $options['auto_log_stacks'] = true;
-        $options['name'] = $_SERVER["SERVER_NAME"];
+        if (isset($_SERVER["SERVER_NAME"])){
+            $options['name'] = $_SERVER["SERVER_NAME"];
+        }
         parent::__construct($dsn, $options);
     }
 
