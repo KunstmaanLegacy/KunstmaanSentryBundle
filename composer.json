@@ -1,0 +1,24 @@
+{
+    "name": "kunstmaan/sentry-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony2 KunstmaanSentryBundle",
+    "keywords": ["exceptions", "sentry"],
+    "homepage": "https://github.com/Kunstmaan/KunstmaanSentryBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kunstmaan Team",
+            "homepage": "http://www.kunstmaan.be/",
+            "email": "support@kunstmaan.be"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "symfony/framework-bundle": "2.1.*",
+        "raven/raven": "dev-master"
+    },
+    "autoload": {
+        "psr-0": { "Kunstmaan\\SentryBundle": "" }
+    },
+    "target-dir": "Kunstmaan/SentryBundle"
+}
