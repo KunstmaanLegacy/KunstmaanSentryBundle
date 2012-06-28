@@ -18,8 +18,8 @@ Add these blocks to the following files
     target=/bundles/Kunstmaan/SentryBundle
 
 [raven-php]
-    git=git@github.com:Kunstmaan/raven-php.git
-    target=/bundles/Kunstmaan/SentryBundle/vendor/raven-php
+    git=https://github.com/getsentry/raven-php.git
+    target=/raven-php
 ```
 
 *app/autoload.php*
@@ -29,6 +29,11 @@ $loader = new UniversalClassLoader();
 $loader->registerNamespaces(array(
     ...
     'Kunstmaan'        => __DIR__.'/../vendor/bundles',
+    ...
+));
+$loader->registerPrefixes(array(
+    ...
+    'Raven_'           => __DIR__.'/../vendor/raven-php/lib',
     ...
 ));
 ```
