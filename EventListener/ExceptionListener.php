@@ -6,6 +6,9 @@ use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 
+/**
+ * ExceptionListener
+ */
 class ExceptionListener
 {
     /**
@@ -22,7 +25,9 @@ class ExceptionListener
     }
 
     /**
-     * @param Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent $event
+     * @param GetResponseForExceptionEvent $event
+     *
+     * @return array|null;
      */
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
@@ -31,10 +36,10 @@ class ExceptionListener
             return;
         }
         $culprit = null;
-        if($event->getRequest()->attributes->has("_controller")){
+        if ($event->getRequest()->attributes->has("_controller")) {
             $culprit = $event->getRequest()->attributes->get("_controller");
         }
-        if($this->client->getEnvironment() == 'test'){
+        if ($this->client->getEnvironment() == 'test') {
             return array($exception, $culprit, $this->client->getEnvironment());
         } else {
             $this->client->captureException($exception, $culprit, $this->client->getEnvironment());

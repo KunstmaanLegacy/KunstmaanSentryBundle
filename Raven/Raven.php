@@ -3,6 +3,9 @@ namespace Kunstmaan\SentryBundle\Raven;
 
 use Raven_Client;
 
+/**
+ * Raven
+ */
 class Raven extends Raven_Client
 {
 
@@ -11,12 +14,16 @@ class Raven extends Raven_Client
      */
     private $environment;
 
-    function __construct($dsn, $environment)
+    /**
+     * @param string $dsn         The dsn
+     * @param string $environment The environment (prod, dev, staging,...)
+     */
+    public function __construct($dsn, $environment)
     {
         $this->environment = $environment;
         $options = array();
         $options['auto_log_stacks'] = true;
-        if (isset($_SERVER["SERVER_NAME"])){
+        if (isset($_SERVER["SERVER_NAME"])) {
             $options['name'] = $_SERVER["SERVER_NAME"];
         }
         parent::__construct($dsn, $options);

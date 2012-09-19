@@ -4,6 +4,9 @@ use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
 
+/**
+ * TestKernel
+ */
 class TestKernel extends Kernel
 {
     /**
@@ -13,7 +16,7 @@ class TestKernel extends Kernel
      *
      * @api
      */
-    function registerBundles()
+    public function registerBundles()
     {
     }
 
@@ -24,7 +27,7 @@ class TestKernel extends Kernel
      *
      * @api
      */
-    function registerContainerConfiguration(LoaderInterface $loader)
+    public function registerContainerConfiguration(LoaderInterface $loader)
     {
     }
 }

@@ -6,6 +6,9 @@ use Kunstmaan\SentryBundle\Raven\Raven;
 use RuntimeException;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 
+/**
+ * ShutdownListener
+ */
 class ShutdownListener
 {
     /**
@@ -13,6 +16,9 @@ class ShutdownListener
      */
     protected $client;
 
+    /**
+     * @param Raven $client
+     */
     public function __construct(Raven $client)
     {
         $this->client = $client;
@@ -21,7 +27,7 @@ class ShutdownListener
     /**
      * Register the handler on the request.
      *
-     * @param Symfony\Component\HttpKernel\Event\FilterControllerEvent $event
+     * @param FilterControllerEvent $event
      */
     public function register(FilterControllerEvent $event)
     {

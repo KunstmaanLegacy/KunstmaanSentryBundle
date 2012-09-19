@@ -8,6 +8,9 @@ use Kunstmaan\SentryBundle\EventListener\ExceptionListener;
 
 require_once __DIR__ . '/../TestKernel.php';
 
+/**
+ * ExceptionListenerTest
+ */
 class ExceptionListenerTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -19,7 +22,7 @@ class ExceptionListenerTest extends \PHPUnit_Framework_TestCase
         $raven = new Raven('http://public:secret@example.com/1', $kernel->getEnvironment());
         $listener = new ExceptionListener($raven);
         $request = new Request();
-        $event = new GetResponseForExceptionEvent($kernel, $request , HttpKernelInterface::MASTER_REQUEST, new Exception("Test"));
+        $event = new GetResponseForExceptionEvent($kernel, $request, HttpKernelInterface::MASTER_REQUEST, new Exception("Test"));
         $result = $listener->onKernelException($event);
 
         $this->assertTrue($result[0] instanceof Exception);
