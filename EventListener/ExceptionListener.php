@@ -39,11 +39,11 @@ class ExceptionListener
         if ($event->getRequest()->attributes->has("_controller")) {
             $culprit = $event->getRequest()->attributes->get("_controller");
         }
-        if ($this->client->getEnvironment() == 'test') {
+        if ($this->client->getEnvironment() != 'prod') {
             return array($exception, $culprit, $this->client->getEnvironment());
         } else {
-            $this->client->captureException($exception, $culprit, $this->client->getEnvironment());
-            error_log($exception->getMessage() . ' in: ' . $exception->getFile() . ':' . $exception->getLine());
+            $event_id = $this->client->getIdent($this->client->captureException($exception, $culprit, $this->client->getEnvironment()));
+            error_log("[$event_id] " . $exception->getMessage() . ' in: ' . $exception->getFile() . ':' . $exception->getLine());
         }
     }
 }

@@ -56,7 +56,11 @@ class ShutdownListener
         $message   = sprintf($message, $error['message']);
         $exception = new RuntimeException($message.' in: '.$error['file'].':'.$error['line']);
         $culprit = $error['file'];
-        $this->client->captureException($exception, $culprit);
-        error_log($message.' in: '.$error['file'].':'.$error['line']);
+        if ($this->client->getEnvironment() != 'prod') {
+            return array($exception, $culprit, $this->client->getEnvironment());
+        } else {
+            $event_id = $this->client->getIdent($this->client->captureException($exception, $culprit, $this->client->getEnvironment()));
+            error_log("[$event_id] " . $message.' in: '.$error['file'].':'.$error['line']);
+        }
     }
 }
