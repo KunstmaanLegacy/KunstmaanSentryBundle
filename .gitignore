@@ -1,2 +1,5 @@
-vendor/raven-php
-vendor/symfony
+vendor/
+!vendor/.gitkeep
+.idea/
+
+composer.lock

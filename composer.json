@@ -1,7 +1,7 @@
 {
     "name": "kunstmaan/sentry-bundle",
     "type": "symfony-bundle",
-    "description": "Symfony2 KunstmaanSentryBundle",
+    "description": "The SentryBundle is a Symfony2 bundle for using Raven to send exceptions to Sentry (getsentry.com)",
     "keywords": ["exceptions", "sentry"],
     "homepage": "https://github.com/Kunstmaan/KunstmaanSentryBundle",
     "license": "MIT",

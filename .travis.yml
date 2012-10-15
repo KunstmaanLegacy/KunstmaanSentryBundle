@@ -1,14 +1,15 @@
 language: php
-php:
-  - 5.3
-  - 5.4
 
-env:
-  - SYMFONY_VERSION=origin/2.0
-  - SYMFONY_VERSION=origin/master
+ php:
+   - 5.3
+   - 5.4
 
-before_script: php vendor/vendors.php
+ before_script:
+     - curl -s http://getcomposer.org/installer | php
+     - php composer.phar --dev install
 
-notifications:
-  email:
-    - travis@kunstmaan.be
+ script: phpunit --debug
+
+ notifications:
+   email:
+     - travis@kunstmaan.be
