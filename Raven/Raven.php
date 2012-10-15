@@ -2,6 +2,7 @@
 namespace Kunstmaan\SentryBundle\Raven;
 
 use Raven_Client;
+use Symfony\Component\HttpKernel\Kernel;
 
 /**
  * Raven
@@ -26,6 +27,11 @@ class Raven extends Raven_Client
         if (isset($_SERVER["SERVER_NAME"])) {
             $options['name'] = $_SERVER["SERVER_NAME"];
         }
+        $options['tags'] = array(
+            'php_version' => phpversion(),
+            'symfony_version' => Kernel::VERSION
+        );
+        $options['trace'] = true;
         parent::__construct($dsn, $options);
     }
 
