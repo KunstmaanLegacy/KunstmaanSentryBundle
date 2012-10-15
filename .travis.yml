@@ -1,15 +1,15 @@
 language: php
 
- php:
-   - 5.3
-   - 5.4
+php:
+  - 5.3
+  - 5.4
 
- before_script:
-     - curl -s http://getcomposer.org/installer | php
-     - php composer.phar --dev install
+before_script:
+    - curl -s http://getcomposer.org/installer | php
+    - php composer.phar --dev install
 
- script: phpunit --debug
+script: phpunit --debug
 
- notifications:
-   email:
-     - travis@kunstmaan.be
+notifications:
+  email:
+    - travis@kunstmaan.be
