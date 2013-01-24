@@ -5,62 +5,20 @@ This helps binds the [raven-php module](https://github.com/getsentry/raven-php) 
 
 *Important*: This bundle is heavily inspired by [Drew Butler](https://github.com/nodrew)'s Airbrake bundle.
 
-Installation Instructions
-=========================
+Installation requirements
+-------------------------
+You should be able to get Symfony 2.1 up and running before you can install the KunstmaanAdminBundle.
 
-Add these blocks to the following files
+Installation instructions
+-------------------------
+Assuming you have installed composer.phar or composer binary:
 
-*deps*
-
-```
-[KunstmaanSentryBundle]
-    git=git@github.com:Kunstmaan/KunstmaanSentryBundle.git
-    target=/bundles/Kunstmaan/SentryBundle
-
-[raven-php]
-    git=https://github.com/getsentry/raven-php.git
-    target=/raven-php
+``` bash
+$ composer require kunstmaan/sentry-bundle
 ```
 
-*app/autoload.php*
+Add the KunstmaanSentryBundle to your AppKernel.php file:
 
 ```
-$loader = new UniversalClassLoader();
-$loader->registerNamespaces(array(
-    ...
-    'Kunstmaan'        => __DIR__.'/../vendor/bundles',
-    ...
-));
-$loader->registerPrefixes(array(
-    ...
-    'Raven_'           => __DIR__.'/../vendor/raven-php/lib',
-    ...
-));
+new Kunstmaan\SentryBundle\KunstmaanSentryBundle(),
 ```
-
-*app/AppKernel.php*
-
-```
-public function registerBundles()
-{
-    $bundles = array(
-        // System Bundles
-        ...
-        new Kunstmaan\SentryBundle\KunstmaanSentryBundle(),
-        ...
-    );
-}
-```
-
-*app/config/parameters.ini*
-
-```
-        sentry.dsn="[dsn]"
-```
-
-License
--------
-
-This bundle is under the MIT license. See the complete license in the bundle:
-
-    LICENSE
