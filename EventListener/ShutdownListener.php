@@ -17,11 +17,17 @@ class ShutdownListener
     protected $client;
 
     /**
+     * @var array $environments 
+     */
+    protected $environments;
+
+    /**
      * @param Raven $client
      */
-    public function __construct(Raven $client)
+    public function __construct(Raven $client, $environments)
     {
         $this->client = $client;
+        $this->environments = $environments;
     }
 
     /**
@@ -52,11 +58,11 @@ class ShutdownListener
             return;
         }
 
-        $message   = '[Shutdown Error]: %s';
+        $message   = '%s -> [Shutdown Error]';
         $message   = sprintf($message, $error['message']);
         $exception = new RuntimeException($message.' in: '.$error['file'].':'.$error['line']);
         $culprit = $error['file'];
-        if ($this->client->getEnvironment() != 'prod') {
+        if ( !in_array($this->client->getEnvironment(), $this->environments) ) {
             return array($exception, $culprit, $this->client->getEnvironment());
         } else {
             $event_id = $this->client->getIdent($this->client->captureException($exception, $culprit, $this->client->getEnvironment()));

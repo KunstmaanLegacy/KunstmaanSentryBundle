@@ -17,11 +17,17 @@ class ExceptionListener
     protected $client;
 
     /**
+     * @var array $environments 
+     */
+    protected $environments;
+
+    /**
      * @param Raven $client
      */
-    public function __construct(Raven $client)
+    public function __construct(Raven $client, $environments)
     {
         $this->client = $client;
+        $this->environments = $environments;
     }
 
     /**
@@ -39,11 +45,11 @@ class ExceptionListener
         if ($event->getRequest()->attributes->has("_controller")) {
             $culprit = $event->getRequest()->attributes->get("_controller");
         }
-        if ($this->client->getEnvironment() != 'prod') {
+        if (!in_array($this->client->getEnvironment(), $this->environments)) {
             return array($exception, $culprit, $this->client->getEnvironment());
         } else {
             $event_id = $this->client->getIdent($this->client->captureException($exception, $culprit, $this->client->getEnvironment()));
-            error_log("[$event_id] " . $exception->getMessage() . ' in: ' . $exception->getFile() . ':' . $exception->getLine());
+            return error_log("[$event_id] " . $exception->getMessage() . ' in: ' . $exception->getFile() . ':' . $exception->getLine());
         }
     }
 }
