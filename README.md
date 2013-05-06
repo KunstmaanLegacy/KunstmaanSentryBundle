@@ -22,3 +22,13 @@ Add the KunstmaanSentryBundle to your AppKernel.php file:
 ```
 new Kunstmaan\SentryBundle\KunstmaanSentryBundle(),
 ```
+
+Multiple envirments support (Optional)
+--------------------------------------
+
+Add these lines into 'config.yml'
+
+```
+kunstmaan_sentry:
+    environments: ['prod', 'stage', 'my_optional_env']
+```
