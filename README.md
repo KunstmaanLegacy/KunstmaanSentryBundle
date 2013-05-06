@@ -23,7 +23,7 @@ Add the KunstmaanSentryBundle to your AppKernel.php file:
 new Kunstmaan\SentryBundle\KunstmaanSentryBundle(),
 ```
 
-Multiple envirments support (Optional)
+Multiple environments support (Optional)
 --------------------------------------
 
 Add these lines into 'config.yml'
