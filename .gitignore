@@ -1,5 +1,5 @@
 vendor/
 !vendor/.gitkeep
 .idea/
-
+composer.phar
 composer.lock
