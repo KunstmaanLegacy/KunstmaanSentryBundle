@@ -22,11 +22,5 @@
             <argument type="service" id="sentry.client" />
             <argument>%kunstmaan_sentry.environments%</argument>
         </service>
-
-        <service id="sentry.shutdown_listener" class="%sentry.shutdown_listener.class%">
-            <tag name="kernel.event_listener" event="kernel.controller" method="register" />
-            <argument type="service" id="sentry.client" />
-            <argument>%kunstmaan_sentry.environments%</argument>
-        </service>
     </services>
 </container>
