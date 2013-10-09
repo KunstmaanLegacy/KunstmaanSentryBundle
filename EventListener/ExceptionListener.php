@@ -2,7 +2,6 @@
 namespace Kunstmaan\SentryBundle\EventListener;
 
 use Kunstmaan\SentryBundle\Raven\Raven;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 
@@ -17,7 +16,7 @@ class ExceptionListener
     protected $client;
 
     /**
-     * @var array $environments 
+     * @var array $environments
      */
     protected $environments;
 
