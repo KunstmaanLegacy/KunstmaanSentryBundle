@@ -14,13 +14,14 @@ require_once __DIR__ . '/../TestKernel.php';
 class ExceptionListenerTest extends \PHPUnit_Framework_TestCase
 {
     
-    private function getListnerResult($enabled, $currentEnv = 'test')
+    private function getListenerResult($enabled, $currentEnv = 'test')
     {
-        $kernel = new \TestKernel($currentEnv , false);
+        $kernel = new \TestKernel($currentEnv, false);
         $raven = new Raven('http://public:secret@example.com/1', $kernel->getEnvironment());
         $listener = new ExceptionListener($raven, $enabled);
         $request = new Request();
         $event = new GetResponseForExceptionEvent($kernel, $request, HttpKernelInterface::MASTER_REQUEST, new Exception("Test"));
+
         return $result = $listener->onKernelException($event);
     }
 
@@ -29,7 +30,7 @@ class ExceptionListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testExceptionListenerWithUnhandledEnv()
     {
-        $result = $this->getListnerResult(false, 'test');
+        $result = $this->getListenerResult(false, 'test');
         $this->assertTrue($result[0] instanceof Exception);
         $this->assertEmpty($result[1]);
         $this->assertEquals($result[2], 'test');
@@ -40,8 +41,8 @@ class ExceptionListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testExceptionListenerWithHandledEnv()
     {
-        ini_set('error_log','/dev/null');
-        $result = $this->getListnerResult(true, 'prod');
+        ini_set('error_log', '/dev/null');
+        $result = $this->getListenerResult(true, 'prod');
         $this->assertTrue($result);
     }
 }
