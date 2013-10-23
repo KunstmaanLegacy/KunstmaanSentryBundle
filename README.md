@@ -31,6 +31,7 @@ To enable Sentry for a specific environment, add these lines to the config.yml f
 ```
 kunstmaan_sentry:
     enabled: true
+    dsn: "http://nnn:nnn@12345.12345.12345.12345/1"
 ```
 
 Note that Sentry logging is disabled by default.
