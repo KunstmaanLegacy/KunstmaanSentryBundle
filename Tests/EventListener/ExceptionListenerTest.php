@@ -14,45 +14,34 @@ require_once __DIR__ . '/../TestKernel.php';
 class ExceptionListenerTest extends \PHPUnit_Framework_TestCase
 {
     
-    private function getListnerResult($environments, $currentEnv = 'test')
+    private function getListnerResult($enabled, $currentEnv = 'test')
     {
         $kernel = new \TestKernel($currentEnv , false);
         $raven = new Raven('http://public:secret@example.com/1', $kernel->getEnvironment());
-        $listener = new ExceptionListener($raven, $environments);
+        $listener = new ExceptionListener($raven, $enabled);
         $request = new Request();
         $event = new GetResponseForExceptionEvent($kernel, $request, HttpKernelInterface::MASTER_REQUEST, new Exception("Test"));
         return $result = $listener->onKernelException($event);
     }
 
     /**
-     * @dataProvider unhandledEnvironmentsProvider
      * @covers \Kunstmaan\SentryBundle\EventListener\ExceptionListener
      */
-    public function testExceptionListenerWithUnhandledEnv($environments)
+    public function testExceptionListenerWithUnhandledEnv()
     {
-        $result = $this->getListnerResult($environments, 'test');
+        $result = $this->getListnerResult(false, 'test');
         $this->assertTrue($result[0] instanceof Exception);
         $this->assertEmpty($result[1]);
         $this->assertEquals($result[2], 'test');
     }
 
     /**
-     * @dataProvider unhandledEnvironmentsProvider
      * @covers \Kunstmaan\SentryBundle\EventListener\ExceptionListener
      */
-    public function testExceptionListenerWithHandledEnv($environments)
+    public function testExceptionListenerWithHandledEnv()
     {
         ini_set('error_log','/dev/null');
-        $result = $this->getListnerResult($environments, 'prod');
+        $result = $this->getListnerResult(true, 'prod');
         $this->assertTrue($result);
-    }
-
-    public static function unhandledEnvironmentsProvider()
-    {
-        return array(
-            array(array('prod', 'dev')),
-            array(array('prod', 'dev', 'stage')),
-            array(array('prod', 'dev', 'my_env'))
-        );
     }
 }

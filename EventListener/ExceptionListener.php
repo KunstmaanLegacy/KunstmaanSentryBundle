@@ -16,17 +16,17 @@ class ExceptionListener
     protected $client;
 
     /**
-     * @var array $environments
+     * @var boolean $enabled
      */
-    protected $environments;
+    protected $enabled;
 
     /**
      * @param Raven $client
      */
-    public function __construct(Raven $client, $environments)
+    public function __construct(Raven $client, $enabled)
     {
         $this->client = $client;
-        $this->environments = $environments;
+        $this->enabled = $enabled;
     }
 
     /**
@@ -44,7 +44,7 @@ class ExceptionListener
         if ($event->getRequest()->attributes->has("_controller")) {
             $culprit = $event->getRequest()->attributes->get("_controller");
         }
-        if (!in_array($this->client->getEnvironment(), $this->environments)) {
+        if (!$this->enabled) {
             return array($exception, $culprit, $this->client->getEnvironment());
         } else {
             $event_id = $this->client->getIdent($this->client->captureException($exception, $culprit, $this->client->getEnvironment()));

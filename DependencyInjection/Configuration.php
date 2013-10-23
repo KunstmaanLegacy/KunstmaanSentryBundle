@@ -21,11 +21,12 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('kunstmaan_sentry');
         $rootNode
             ->children()
-                ->arrayNode('environments')
+                ->booleanNode('enabled')
+                    ->defaultValue(false)
+                    ->end()
+                ->scalarNode('dsn')
                     ->cannotBeEmpty()
-                    ->defaultValue(array('prod'))
-                    ->prototype('scalar')
-                ->end()
+                    ->end()
             ->end();
 
         // Here you should define the parameters that are allowed to
