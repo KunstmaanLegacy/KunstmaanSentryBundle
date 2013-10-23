@@ -15,7 +15,7 @@ class KunstmaanSentryBundle extends Bundle
      */
     public function boot()
     {
-        if (!in_array($this->container->getParameter('kernel.environment'), $this->container->getParameter('kunstmaan_sentry.environments'))) {
+        if (!$this->container->getParameter('kunstmaan_sentry.enabled')) {
             return;
         }
 

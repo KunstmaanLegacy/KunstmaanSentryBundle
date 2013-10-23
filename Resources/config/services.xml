@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="sentry.dsn"></parameter>
+        <parameter key="sentry.dsn">%kunstmaan_sentry.dsn%</parameter>
         <parameter key="sentry.client.class">Kunstmaan\SentryBundle\Raven\Raven</parameter>
         <parameter key="sentry.exception_listener.class">Kunstmaan\SentryBundle\EventListener\ExceptionListener</parameter>
         <parameter key="sentry.shutdown_listener.class">Kunstmaan\SentryBundle\EventListener\ShutdownListener</parameter>
@@ -20,7 +20,7 @@
         <service id="sentry.exception_listener" class="%sentry.exception_listener.class%">
             <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException" />
             <argument type="service" id="sentry.client" />
-            <argument>%kunstmaan_sentry.environments%</argument>
+            <argument>%kunstmaan_sentry.enabled%</argument>
         </service>
     </services>
 </container>
