@@ -23,12 +23,14 @@ Add the KunstmaanSentryBundle to your AppKernel.php file:
 new Kunstmaan\SentryBundle\KunstmaanSentryBundle(),
 ```
 
-Multiple environments support (Optional)
---------------------------------------
+Multiple environments support
+-----------------------------
 
-Add these lines into 'config.yml'
+To enable Sentry for a specific environment, add these lines to the config.yml file for the environment (ie. config_prod.yml) :
 
 ```
 kunstmaan_sentry:
-    environments: ['prod', 'stage', 'my_optional_env']
+    enabled: true
 ```
+
+Note that Sentry logging is disabled by default.
