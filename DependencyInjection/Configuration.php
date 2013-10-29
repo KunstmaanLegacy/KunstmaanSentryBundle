@@ -22,11 +22,11 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->booleanNode('enabled')
-                    ->defaultValue(false)
-                    ->end()
+                    ->defaultFalse()
+                ->end()
                 ->scalarNode('dsn')
-                    ->cannotBeEmpty()
-                    ->end()
+                    ->defaultNull()
+                ->end()
             ->end();
 
         // Here you should define the parameters that are allowed to

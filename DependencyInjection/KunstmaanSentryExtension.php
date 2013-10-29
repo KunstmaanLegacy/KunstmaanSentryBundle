@@ -4,6 +4,7 @@ namespace Kunstmaan\SentryBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
@@ -21,11 +22,16 @@ class KunstmaanSentryExtension extends Extension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
-
-        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.xml');
         $container->setParameter($this->getAlias(). '.enabled', $config['enabled']);
         $container->setParameter($this->getAlias(). '.dsn', $config['dsn']);
+
+        if ($this->isConfigEnabled($container, $config)) {
+            if (!array_key_exists('dsn', $config) || empty($config['dsn'])) {
+                throw new InvalidArgumentException("The kunstmaan_sentry config array 'dsn' key is required.");
+            }
+            $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+            $loader->load('services.xml');
+        }
 
     }
 }
