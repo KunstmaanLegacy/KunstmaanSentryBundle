@@ -16,17 +16,11 @@ class ExceptionListener
     protected $client;
 
     /**
-     * @var boolean $enabled
-     */
-    protected $enabled;
-
-    /**
      * @param Raven $client
      */
-    public function __construct(Raven $client, $enabled)
+    public function __construct(Raven $client)
     {
         $this->client = $client;
-        $this->enabled = $enabled;
     }
 
     /**
@@ -44,11 +38,8 @@ class ExceptionListener
         if ($event->getRequest()->attributes->has("_controller")) {
             $culprit = $event->getRequest()->attributes->get("_controller");
         }
-        if (!$this->enabled) {
-            return array($exception, $culprit, $this->client->getEnvironment());
-        } else {
-            $event_id = $this->client->getIdent($this->client->captureException($exception, $culprit, $this->client->getEnvironment()));
-            return error_log("[$event_id] " . $exception->getMessage() . ' in: ' . $exception->getFile() . ':' . $exception->getLine());
-        }
+        $event_id = $this->client->getIdent($this->client->captureException($exception, $culprit, $this->client->getEnvironment()));
+
+        return error_log("[$event_id] " . $exception->getMessage() . ' in: ' . $exception->getFile() . ':' . $exception->getLine());
     }
 }

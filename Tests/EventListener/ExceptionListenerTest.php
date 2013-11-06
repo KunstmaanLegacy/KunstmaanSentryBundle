@@ -13,27 +13,17 @@ require_once __DIR__ . '/../TestKernel.php';
  */
 class ExceptionListenerTest extends \PHPUnit_Framework_TestCase
 {
-    
-    private function getListenerResult($enabled, $currentEnv = 'test')
+
+    // TODO: Add better test (check that Sentry ExceptionListener is only triggered when Sentry bundle is enabled)
+    private function getListenerResult($currentEnv = 'test')
     {
         $kernel = new \TestKernel($currentEnv, false);
         $raven = new Raven('http://public:secret@example.com/1', $kernel->getEnvironment());
-        $listener = new ExceptionListener($raven, $enabled);
+        $listener = new ExceptionListener($raven);
         $request = new Request();
         $event = new GetResponseForExceptionEvent($kernel, $request, HttpKernelInterface::MASTER_REQUEST, new Exception("Test"));
 
         return $result = $listener->onKernelException($event);
-    }
-
-    /**
-     * @covers \Kunstmaan\SentryBundle\EventListener\ExceptionListener
-     */
-    public function testExceptionListenerWithUnhandledEnv()
-    {
-        $result = $this->getListenerResult(false, 'test');
-        $this->assertTrue($result[0] instanceof Exception);
-        $this->assertEmpty($result[1]);
-        $this->assertEquals($result[2], 'test');
     }
 
     /**

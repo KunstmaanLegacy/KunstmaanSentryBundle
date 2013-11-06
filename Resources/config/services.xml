@@ -20,7 +20,6 @@
         <service id="sentry.exception_listener" class="%sentry.exception_listener.class%">
             <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException" />
             <argument type="service" id="sentry.client" />
-            <argument>%kunstmaan_sentry.enabled%</argument>
         </service>
     </services>
 </container>
