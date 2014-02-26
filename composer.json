@@ -1,9 +1,9 @@
 {
     "name": "kunstmaan/sentry-bundle",
     "type": "symfony-bundle",
-    "description": "The SentryBundle for Symfony2 helps binds the raven-php module into a Symfony2 bundle for easy use with the framework. It will autoload an exception handler into the framework, so that all uncaught errors are sent to a Sentry server.",
+    "description": "THIS REPO IS DEPRECATED: replaced by Monolog | The SentryBundle for Symfony2 helps binds the raven-php module into a Symfony2 bundle for easy use with the framework. It will autoload an exception handler into the framework, so that all uncaught errors are sent to a Sentry server.",
     "keywords": ["exceptions", "sentry"],
-    "homepage": "https://github.com/Kunstmaan/KunstmaanSentryBundle",
+    "homepage": "https://github.com/KunstmaanLegacy/KunstmaanSentryBundle",
     "license": "MIT",
     "authors": [
         {
