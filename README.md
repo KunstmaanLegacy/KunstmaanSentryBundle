@@ -1,3 +1,6 @@
+*IMPORTANT*: We recommend that you no longer use this bundle. Since it's inception Monolog has gotten built in Sentry support. See https://github.com/KunstmaanLegacy/KunstmaanSentryBundle/issues/18 and https://github.com/Seldaek/monolog/pull/76/files
+
+
 SentryBundle for Symfony2
 ================================
 
