@@ -34,4 +34,12 @@ class KunstmaanSentryExtension extends Extension
         }
 
     }
+    
+    protected function isConfigEnabled($container, $config)
+	{
+		if ($config['enabled'] == true) {
+			return true;
+		}
+		return false;
+	}
 }
